@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
 	"os/signal"
 	"syscall"
 
@@ -46,4 +47,32 @@ func Run(log *logger.Logger, application *app.App) error {
 	case err := <-errChan:
 		return err
 	}
+}
+
+// Start запускает systemd сервис
+func Start(serviceName string) error {
+	cmd := exec.Command("systemctl", "start", serviceName)
+	if output, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("failed to start service: %w (output: %s)", err, string(output))
+	}
+	return nil
+}
+
+// Stop останавливает systemd сервис
+func Stop(serviceName string) error {
+	cmd := exec.Command("systemctl", "stop", serviceName)
+	if output, err := cmd.CombinedOutput(); err != nil {
+		return fmt.Errorf("failed to stop service: %w (output: %s)", err, string(output))
+	}
+	return nil
+}
+
+// Install устанавливает systemd сервис
+func Install(serviceName, displayName, description, execPath string) error {
+	return fmt.Errorf("install on Linux: use scripts/install.sh instead")
+}
+
+// Uninstall удаляет systemd сервис
+func Uninstall(serviceName string) error {
+	return fmt.Errorf("uninstall on Linux: use scripts/uninstall.sh instead")
 }
