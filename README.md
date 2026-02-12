@@ -2,6 +2,63 @@
 
 Cross-platform production-ready service boilerplate на Go с поддержкой Windows Service и systemd.
 
+## Быстрый старт: Создание нового проекта
+
+### Способ 1: GitHub Template (рекомендуется)
+
+1. Открой https://github.com/warlocknt/service-boilerplate
+2. Нажми зеленую кнопку **"Use this template"**
+3. Введи имя нового проекта и создай репозиторий
+4. Клонируй и начни разработку!
+
+### Способ 2: Генератор проекта
+
+**Windows:**
+```cmd
+# Скопируй скрипт генератора
+scripts\new-service.bat my-awesome-service
+
+# Или с указанием пути
+scripts\new-service.bat my-awesome-service C:\Projects
+```
+
+**Linux/Mac:**
+```bash
+# Сделай скрипт исполняемым
+chmod +x scripts/new-service.sh
+
+# Создай новый проект
+./scripts/new-service.sh my-awesome-service
+
+# Или с указанием пути
+./scripts/new-service.sh my-awesome-service ~/projects
+```
+
+Генератор автоматически:
+- ✅ Скачает boilerplate
+- ✅ Переименует Go модуль
+- ✅ Обновит конфигурацию
+- ✅ Инициализирует git
+- ✅ Очистит артефакты сборки
+
+### Способ 3: Ручное клонирование
+
+```bash
+# Клонируй
+git clone https://github.com/warlocknt/service-boilerplate.git my-service
+cd my-service
+
+# Удали историю и начни с чистого листа
+rm -rf .git
+git init
+git add .
+git commit -m "Initial commit"
+
+# Переименуй модуль
+go mod edit -module my-service
+# Или вручную: замени "service-boilerplate" на "my-service" в go.mod
+```
+
 ## Возможности
 
 - **Кроссплатформенность**: Windows Service + Linux systemd
