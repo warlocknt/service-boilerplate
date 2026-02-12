@@ -44,7 +44,6 @@ func TestRun_GracefulShutdown(t *testing.T) {
 	// Создаем простой app для теста
 	cfg := &config.Config{
 		Service: config.ServiceConfig{
-			Name:   "test",
 			LogDir: tmpDir,
 		},
 		Scheduler: config.SchedulerConfig{
@@ -95,7 +94,6 @@ func TestRun_ContextCancellation(t *testing.T) {
 
 	cfg := &config.Config{
 		Service: config.ServiceConfig{
-			Name:   "test",
 			LogDir: tmpDir,
 		},
 		Scheduler: config.SchedulerConfig{
@@ -152,7 +150,6 @@ func TestSignalHandling(t *testing.T) {
 
 			cfg := &config.Config{
 				Service: config.ServiceConfig{
-					Name:   "test",
 					LogDir: tmpDir,
 				},
 				Scheduler: config.SchedulerConfig{

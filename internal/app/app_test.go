@@ -43,10 +43,7 @@ func setupTestApp(t *testing.T) (*App, *config.Config, *logger.Logger) {
 
 	cfg := &config.Config{
 		Service: config.ServiceConfig{
-			Name:        "test-service",
-			DisplayName: "Test Service",
-			Description: "Test Description",
-			LogDir:      tmpDir,
+			LogDir: tmpDir,
 		},
 		Scheduler: config.SchedulerConfig{
 			MaxPanicRestarts: 3,
@@ -284,7 +281,6 @@ func TestRun_WithMetricsEnabled(t *testing.T) {
 
 	cfg := &config.Config{
 		Service: config.ServiceConfig{
-			Name:   "test-service",
 			LogDir: tmpDir,
 		},
 		Scheduler: config.SchedulerConfig{
