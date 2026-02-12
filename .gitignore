@@ -1,0 +1,7 @@
+# Build artifacts
+build/
+*.log
+logs/
+coverage.out
+coverage.html
+nul

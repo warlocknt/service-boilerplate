@@ -1,0 +1,16 @@
+[Unit]
+Description=Service Boilerplate - Cross-platform service boilerplate
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/service-boilerplate/service-boilerplate run
+WorkingDirectory=/opt/service-boilerplate
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=service-boilerplate
+
+[Install]
+WantedBy=multi-user.target

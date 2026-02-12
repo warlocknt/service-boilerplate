@@ -1,0 +1,13 @@
+service:
+  name: service-boilerplate
+  display_name: Service Boilerplate
+  description: Cross-platform service boilerplate
+  log_dir: ./logs
+
+scheduler:
+  max_panic_restarts: 5
+  backoff_seconds: 5
+
+metrics:
+  enabled: true
+  listen: ":9090"
