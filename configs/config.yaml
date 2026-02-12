@@ -1,5 +1,4 @@
 service:
-  name: service-boilerplate
   display_name: Service Boilerplate
   description: Cross-platform service boilerplate
   log_dir: ./logs

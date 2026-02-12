@@ -14,6 +14,9 @@ import (
 	"service-boilerplate/internal/task"
 )
 
+// ServiceName определяет имя службы (константа, задается при компиляции)
+const ServiceName = "service-boilerplate"
+
 // App представляет основное приложение
 type App struct {
 	config    *config.Config
@@ -56,7 +59,7 @@ func (a *App) RegisterTask(t task.Task) {
 // Run запускает приложение
 func (a *App) Run(ctx context.Context) error {
 	a.log.Info("Application starting", map[string]interface{}{
-		"service": a.config.Service.Name,
+		"service": ServiceName,
 		"version": "1.0.0",
 	})
 

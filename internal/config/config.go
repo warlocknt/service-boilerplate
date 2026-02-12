@@ -17,7 +17,6 @@ type Config struct {
 
 // ServiceConfig содержит настройки сервиса
 type ServiceConfig struct {
-	Name        string `yaml:"name"`
 	DisplayName string `yaml:"display_name"`
 	Description string `yaml:"description"`
 	LogDir      string `yaml:"log_dir"`
@@ -48,9 +47,6 @@ func Load(path string) (*Config, error) {
 	}
 
 	// Устанавливаем значения по умолчанию
-	if cfg.Service.Name == "" {
-		cfg.Service.Name = "service-boilerplate"
-	}
 	if cfg.Service.DisplayName == "" {
 		cfg.Service.DisplayName = "Service Boilerplate"
 	}

@@ -31,7 +31,7 @@ func main() {
 	}
 
 	// Инициализируем логгер
-	log, err := logger.New(cfg.Service.Name, cfg.Service.LogDir)
+	log, err := logger.New(app.ServiceName, cfg.Service.LogDir)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to initialize logger: %v\n", err)
 		os.Exit(1)
@@ -94,13 +94,13 @@ func main() {
 			log.Info("Service uninstalled successfully")
 		case "start":
 			// Запуск Windows сервиса
-			if err := platform.Start(cfg.Service.Name); err != nil {
+			if err := platform.Start(app.ServiceName); err != nil {
 				log.Fatal("Failed to start service", map[string]interface{}{"error": err.Error()})
 			}
 			log.Info("Service started successfully")
 		case "stop":
 			// Остановка Windows сервиса
-			if err := platform.Stop(cfg.Service.Name); err != nil {
+			if err := platform.Stop(app.ServiceName); err != nil {
 				log.Fatal("Failed to stop service", map[string]interface{}{"error": err.Error()})
 			}
 			log.Info("Service stopped successfully")
@@ -120,13 +120,13 @@ func main() {
 // installService устанавливает Windows сервис
 func installService(cfg *config.Config, execPath string) error {
 	// Регистрируем источник событий
-	if err := logger.RegisterEventSource(cfg.Service.Name); err != nil {
+	if err := logger.RegisterEventSource(app.ServiceName); err != nil {
 		return fmt.Errorf("failed to register event source: %w", err)
 	}
 
 	// Устанавливаем сервис
-	if err := platform.Install(cfg.Service.Name, cfg.Service.DisplayName, cfg.Service.Description, execPath); err != nil {
-		logger.UnregisterEventSource(cfg.Service.Name)
+	if err := platform.Install(app.ServiceName, cfg.Service.DisplayName, cfg.Service.Description, execPath); err != nil {
+		logger.UnregisterEventSource(app.ServiceName)
 		return err
 	}
 
@@ -136,12 +136,12 @@ func installService(cfg *config.Config, execPath string) error {
 // uninstallService удаляет Windows сервис
 func uninstallService(cfg *config.Config) error {
 	// Удаляем сервис
-	if err := platform.Uninstall(cfg.Service.Name); err != nil {
+	if err := platform.Uninstall(app.ServiceName); err != nil {
 		return err
 	}
 
 	// Удаляем источник событий
-	if err := logger.UnregisterEventSource(cfg.Service.Name); err != nil {
+	if err := logger.UnregisterEventSource(app.ServiceName); err != nil {
 		return fmt.Errorf("failed to unregister event source: %w", err)
 	}
 
