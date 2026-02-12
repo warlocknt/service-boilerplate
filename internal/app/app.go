@@ -17,6 +17,12 @@ import (
 // ServiceName определяет имя службы (константа, задается при компиляции)
 const ServiceName = "service-boilerplate"
 
+// ServiceDisplayName определяет отображаемое имя службы
+const ServiceDisplayName = "Service Boilerplate"
+
+// ServiceDescription определяет описание службы
+const ServiceDescription = "Cross-platform service boilerplate"
+
 // App представляет основное приложение
 type App struct {
 	config    *config.Config

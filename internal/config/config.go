@@ -17,9 +17,7 @@ type Config struct {
 
 // ServiceConfig содержит настройки сервиса
 type ServiceConfig struct {
-	DisplayName string `yaml:"display_name"`
-	Description string `yaml:"description"`
-	LogDir      string `yaml:"log_dir"`
+	LogDir string `yaml:"log_dir"`
 }
 
 // SchedulerConfig содержит настройки планировщика
@@ -47,12 +45,6 @@ func Load(path string) (*Config, error) {
 	}
 
 	// Устанавливаем значения по умолчанию
-	if cfg.Service.DisplayName == "" {
-		cfg.Service.DisplayName = "Service Boilerplate"
-	}
-	if cfg.Service.Description == "" {
-		cfg.Service.Description = "Cross-platform service boilerplate"
-	}
 	if cfg.Service.LogDir == "" {
 		cfg.Service.LogDir = "./logs"
 	}

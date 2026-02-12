@@ -15,9 +15,6 @@ func TestLoad_Success(t *testing.T) {
 	// Создаем тестовый конфиг
 	configContent := `
 service:
-  name: test-service
-  display_name: Test Service
-  description: Test description
   log_dir: ./testlogs
 
 scheduler:
@@ -39,15 +36,6 @@ metrics:
 	}
 
 	// Проверяем значения
-	if cfg.Service.Name != "test-service" {
-		t.Errorf("Service.Name = %v, want test-service", cfg.Service.Name)
-	}
-	if cfg.Service.DisplayName != "Test Service" {
-		t.Errorf("Service.DisplayName = %v, want Test Service", cfg.Service.DisplayName)
-	}
-	if cfg.Service.Description != "Test description" {
-		t.Errorf("Service.Description = %v, want Test description", cfg.Service.Description)
-	}
 	if cfg.Service.LogDir != "./testlogs" {
 		t.Errorf("Service.LogDir = %v, want ./testlogs", cfg.Service.LogDir)
 	}
@@ -82,15 +70,6 @@ func TestLoad_DefaultValues(t *testing.T) {
 	}
 
 	// Проверяем значения по умолчанию
-	if cfg.Service.Name != "service-boilerplate" {
-		t.Errorf("Service.Name default = %v, want service-boilerplate", cfg.Service.Name)
-	}
-	if cfg.Service.DisplayName != "Service Boilerplate" {
-		t.Errorf("Service.DisplayName default = %v, want Service Boilerplate", cfg.Service.DisplayName)
-	}
-	if cfg.Service.Description != "Cross-platform service boilerplate" {
-		t.Errorf("Service.Description default = %v, want Cross-platform service boilerplate", cfg.Service.Description)
-	}
 	if cfg.Service.LogDir != "./logs" {
 		t.Errorf("Service.LogDir default = %v, want ./logs", cfg.Service.LogDir)
 	}
@@ -121,7 +100,7 @@ func TestLoad_InvalidYAML(t *testing.T) {
 	// Создаем невалидный YAML
 	configContent := `
 service:
-  name: [invalid yaml structure
+  log_dir: [invalid yaml structure
 `
 	if err := os.WriteFile(configPath, []byte(configContent), 0644); err != nil {
 		t.Fatalf("failed to create test config: %v", err)
@@ -149,8 +128,8 @@ func TestLoad_EmptyFile(t *testing.T) {
 	}
 
 	// Проверяем что применились дефолтные значения
-	if cfg.Service.Name != "service-boilerplate" {
-		t.Errorf("expected default name, got %v", cfg.Service.Name)
+	if cfg.Service.LogDir != "./logs" {
+		t.Errorf("expected default log_dir, got %v", cfg.Service.LogDir)
 	}
 }
 

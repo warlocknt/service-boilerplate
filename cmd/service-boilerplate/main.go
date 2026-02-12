@@ -125,7 +125,7 @@ func installService(cfg *config.Config, execPath string) error {
 	}
 
 	// Устанавливаем сервис
-	if err := platform.Install(app.ServiceName, cfg.Service.DisplayName, cfg.Service.Description, execPath); err != nil {
+	if err := platform.Install(app.ServiceName, app.ServiceDisplayName, app.ServiceDescription, execPath); err != nil {
 		logger.UnregisterEventSource(app.ServiceName)
 		return err
 	}
