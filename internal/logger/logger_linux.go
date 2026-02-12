@@ -189,3 +189,15 @@ func (l *Logger) Close() error {
 	}
 	return nil
 }
+
+// RegisterEventSource регистрирует источник событий (только для Windows, на Linux no-op)
+func RegisterEventSource(serviceName string) error {
+	// На Linux не используется Windows Event Log
+	return nil
+}
+
+// UnregisterEventSource удаляет источник событий (только для Windows, на Linux no-op)
+func UnregisterEventSource(serviceName string) error {
+	// На Linux не используется Windows Event Log
+	return nil
+}
