@@ -183,12 +183,12 @@ echo.
 echo Commands:
 echo   all         Run tests and build (default)
 echo   test        Run all tests
-    echo   test-fast   Run all tests (alias for test)
+echo   test-fast   Run all tests (alias for test)
 echo   build       Build binary (only if tests pass)
 echo   build-only  Build without running tests
-echo   build-all   Build for multiple platforms
-echo   build-win   Build for Windows only
-echo   build-linux Build for Linux only
+echo   build-all   Cross-compile: Windows (.exe) + Linux (amd64, arm64)
+echo   build-win   Build for current platform (Windows .exe)
+echo   build-linux Cross-compile for Linux (amd64, arm64)
 echo   coverage    Generate coverage report
 echo   check       Run formatting and vet
 echo   clean       Clean build artifacts
@@ -200,6 +200,8 @@ echo Examples:
 echo   build.bat              - Run tests and build for current platform
 echo   build.bat test         - Run tests only
 echo   build.bat build-only   - Build without tests
+echo   build.bat build-all    - Build for Windows + Linux
+echo   build.bat build-linux  - Build only Linux binaries (from Windows)
 echo   build.bat ci           - Full CI pipeline
 echo.
 echo Notes:

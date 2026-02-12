@@ -110,6 +110,23 @@ build() {
     print_success "Build complete: $output"
 }
 
+# Build for Windows (cross-compile from Linux/Mac)
+build_win() {
+    print_header "Building for Windows..."
+    build "$BINARY_NAME-windows-amd64.exe" "windows" "amd64"
+    print_success "Windows build complete"
+}
+
+# Build for Linux (native or cross-compile)
+build_linux() {
+    print_header "Building for Linux..."
+    # Linux AMD64
+    build "$BINARY_NAME-linux-amd64" "linux" "amd64"
+    # Linux ARM64
+    build "$BINARY_NAME-linux-arm64" "linux" "arm64"
+    print_success "Linux build complete"
+}
+
 # Build for multiple platforms
 build_all() {
     print_header "Building for multiple platforms..."
@@ -170,7 +187,9 @@ help() {
     echo "  test-fast   Run tests without race detector"
     echo "  build       Build binary (requires passing tests)"
     echo "  build-only  Build without running tests"
-    echo "  build-all   Build for multiple platforms"
+    echo "  build-all   Build for multiple platforms (Linux, Windows, macOS)"
+    echo "  build-win   Cross-compile for Windows from Linux/Mac"
+    echo "  build-linux Build for Linux (amd64, arm64)"
     echo "  coverage    Generate coverage report"
     echo "  check       Run formatting and vet"
     echo "  clean       Clean build artifacts"
@@ -213,6 +232,14 @@ case "${1:-all}" in
         run_tests
         clean
         build_all
+        ;;
+    build-win)
+        clean
+        build_win
+        ;;
+    build-linux)
+        clean
+        build_linux
         ;;
     coverage)
         coverage
