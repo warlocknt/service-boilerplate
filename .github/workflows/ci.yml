@@ -7,14 +7,10 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  # Job: Запуск тестов (только проверка кода, без сборки бинарников)
+  # Job: Запуск тестов (только Ubuntu, так как это шаблон проекта)
   test:
     name: Run Tests
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        go-version: ['1.23', '1.24']
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
@@ -23,7 +19,7 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v5
       with:
-        go-version: ${{ matrix.go-version }}
+        go-version: '1.24'
 
     - name: Cache Go modules
       uses: actions/cache@v4
@@ -39,11 +35,7 @@ jobs:
     - name: Run go vet
       run: go vet ./...
 
-    - name: Run tests
-      run: go test -v -timeout 120s ./...
-
     - name: Check code formatting
-      if: matrix.os == 'ubuntu-latest'
       run: |
         if [ "$(gofmt -l . | wc -l)" -gt 0 ]; then
           echo "Code is not formatted. Run 'go fmt ./...'"
@@ -51,12 +43,13 @@ jobs:
           exit 1
         fi
 
+    - name: Run tests
+      run: go test -v -timeout 120s ./...
+
     - name: Generate coverage report
-      if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
       run: go test -coverprofile=coverage.out -timeout 120s ./...
 
     - name: Upload coverage to Codecov
-      if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.24'
       uses: codecov/codecov-action@v4
       with:
         file: ./coverage.out
