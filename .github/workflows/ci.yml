@@ -7,7 +7,6 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  # Job: Запуск тестов (только Ubuntu, так как это шаблон проекта)
   test:
     name: Run Tests
     runs-on: ubuntu-latest
@@ -45,13 +44,3 @@ jobs:
 
     - name: Run tests
       run: go test -v -timeout 120s ./...
-
-    - name: Generate coverage report
-      run: go test -coverprofile=coverage.out -timeout 120s ./...
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
-      with:
-        file: ./coverage.out
-        flags: unittests
-        name: codecov-umbrella
